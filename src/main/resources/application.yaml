@@ -1,14 +1,36 @@
 spring:
   application:
     name: scoring
+  datasource:
+    url: ${DB_URL :jdbc:postgresql://localhost:9880/scoring}
+    username: ${SPRING_DATASOURCE_USERNAME :scoring}
+    password: ${SPRING_DATASOURCE_PASSWORD :12345}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:db/changelog/main-changelog.xml
+    enabled: true
 
 server:
-  port: 8089
-
+  port: ${PORT :8095}
 
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8765/eureka
+      #      defaultZone: http://localhost:8765/eureka
+      defaultZone: http://service-discovery/eureka
+
+
+jwt:
+  secret: ${JWT_SECRET :844c1a09b1e84fb767916edce5f6fbad1401c588a0f10fb7de79c245324c4d7d3e6c62b5aec4a168cc14f957946ced574ad38cb6b44d732641f307158afd19fb}

@@ -1,7 +1,11 @@
 package com.contact.scoring.service;
 
+import com.contact.scoring.model.request.AddUserScore;
+
 public interface ScoreService {
 
-    void increaseScore();
+    void openAccountWithInitialScore(String userId);
+
+    void addScoreToUser(String token, AddUserScore addUserScore);
 
 }
